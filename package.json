@@ -1,0 +1,13 @@
+{
+  "name": "vdeo-chat-backkend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "repository": "https://github.com/Lawren10/video-chat-backend.git",
+  "author": "Lawren10 <lawrenceanthony70@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  }
+}
