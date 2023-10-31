@@ -37,6 +37,34 @@ io.on("connect", async (socket) => {
    new calleWrtc.RTCSessionDescription(credential.clientOffer)
   );
 
+  serverPeer.socketId = socket.id;
+  serverPeer.roomId = credential.roomId;
+
+  serverPeer.ontrack = (e) => {
+   console.log(e);
+   // e.streams.getTracks().forEach((item) => {
+   //  console.log(item);
+   // });
+
+   // remoteStream.forEach((element) => {
+   //  console.log("track stream", element.id);
+   //  // serverPeer.addTrack(element, remoteStream);
+   // });
+   // console.log("form ontrack serverId", serverPeer.socketId);
+   // console.log("form ontrack RoomId", serverPeer.roomId);
+   // const currentSocket = io.sockets.sockets.get(serverPeer.socketId);
+   // currentSocket.emit("sending stream", remoteStream);
+   // console.log(io.sockets.sockets.get(serverPeer.socketId));
+   // console.log("stream evnt T", e.transceiver);/
+
+   // remoteStream.forEach((element) => {
+   //  console.log("track stream", element.id);
+   // });
+   // console.log("tracks streamed", remoteStream);
+  };
+
+  socket.serverWrtc = serverPeer;
+
   // server
 
   console.log("server remote disc set");
@@ -48,27 +76,21 @@ io.on("connect", async (socket) => {
 
   socket.emit("getServerAnswer", serverAnswer);
 
-  socket.on("sendingIceCandidates", (clientIce) => {
-   console.log("client ice candidate", clientIce.iceCanditate);
+  socket.on("sendingClientIceCandidates", (clientIce) => {
+   // console.log("client ice candidate saving", clientIce.iceCanditate);
 
    serverPeer.addIceCandidate(clientIce.iceCanditate);
   });
 
   // const offer = await localPeer.createOffer();
-  console.log(serverPeer._listeners);
-
-  socket.serverWrtc = serverPeer;
 
   socket.join(credential.roomId);
   console.log(
-   "socket in room",
-   // io.sockets.adapter.rooms.get(credential.roomId),
-   socket.serverWrtc.localDescription,
-   socket.serverWrtc.remoteDescription,
-   socket.serverWrtc.iceGatheringState,
-   socket.serverWrtc.iceConnectionState
+   "socket in room"
+   // socket.serverWrtc.remoteDescription
   );
  });
+ // creating room end
 });
 
 server.listen(8000, () => {
