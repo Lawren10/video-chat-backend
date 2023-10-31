@@ -1,13 +1,20 @@
 {
-  "name": "vdeo-chat-backkend",
-  "version": "1.0.0",
-  "main": "server.js",
-  "type": "module",
-  "repository": "https://github.com/Lawren10/video-chat-backend.git",
-  "author": "Lawren10 <lawrenceanthony70@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2",
-    "socket.io": "^4.7.2"
-  }
+ "name": "vdeo-chat-backkend",
+ "version": "1.0.0",
+ "main": "server.js",
+ "repository": "https://github.com/Lawren10/video-chat-backend.git",
+ "author": "Lawren10 <lawrenceanthony70@gmail.com>",
+ "license": "MIT",
+ "dependencies": {
+  "cors": "^2.8.5",
+  "express": "^4.18.2",
+  "socket.io": "^4.7.2",
+  "wrtc": "^0.4.7"
+ },
+ "scripts": {
+  "start": "nodemon server.js"
+ },
+ "devDependencies": {
+  "nodemon": "^3.0.1"
+ }
 }
