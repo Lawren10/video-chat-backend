@@ -107,6 +107,11 @@ calleIo.on("connect", async (socket) => {
   console.log(chatMessage);
   socket.to(roomId).emit("broadcastMessage", socket.userName, chatMessage);
  });
+
+ socket.on("sharingScreen", (roomId) => {
+  console.log("from sharing screen", roomId, socket.id);
+  socket.to(roomId).emit("userSharingScreen", socket.id);
+ });
 });
 
 server.listen(8000, () => {
