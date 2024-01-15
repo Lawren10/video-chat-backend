@@ -28,7 +28,6 @@ const roomInit = async (
   roomId = nameOrId;
 
   if (!Routers[roomId]) {
-   console.log("room id not found");
    socket.emit("roomId-error");
    return;
   }
@@ -38,8 +37,6 @@ const roomInit = async (
   socket.routerId = roomId;
   socket.userName = userName;
  }
-
- console.log("roomId", roomId);
 
  socket.join(roomId);
 
@@ -56,8 +53,6 @@ const createServerProducer = async (Routers, socket) => {
  );
 
  serverStreamProducerTransport.on("dtlsstatechange", (dtlsState) => {
-  console.log(dtlsState);
-
   if (dtlsState === "connected") {
    console.log("server connected to clent");
   }
@@ -122,7 +117,7 @@ const sendTransportProduce = async (
 };
 
 const createServerConsumerTransport = async (peerId, Routers, socket) => {
- console.log("creating server consumer transport");
+ // console.log("creating server consumer transport");
  const roomRouter = Routers[socket.routerId];
 
  const serverStreamConsumerTransport = await roomRouter.createWebRtcTransport(
@@ -170,15 +165,12 @@ const sendConsumerConnect = async (
 };
 
 const createConsumerStream = async (Routers, socket, param, calleIo) => {
- console.log("creating server consumers and sending params to client");
- // console.log("peertoconnectid", param.peerToConnectId);
+ // console.log("creating server consumers and sending params to client");
 
  const roomRouter = Routers[socket.routerId];
  let consumerTransportObj =
   socket.serverConsumerTransports[param.peerToConnectId];
 
- // console.log("peertoconnectidObject", consumerTransportObj);
- // return;
  let producerTransport = calleIo.sockets.sockets.get(param.peerToConnectId);
  const serverConsumerTransport = consumerTransportObj.consumerTransport;
  const serverVideoProducer = producerTransport["serverVideoProducer"];

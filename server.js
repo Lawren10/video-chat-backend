@@ -104,13 +104,17 @@ calleIo.on("connect", async (socket) => {
  //events for handling chats updates
 
  socket.on("chatMessage", (chatMessage, roomId) => {
-  console.log(chatMessage);
   socket.to(roomId).emit("broadcastMessage", socket.userName, chatMessage);
  });
 
  socket.on("sharingScreen", (roomId) => {
-  console.log("from sharing screen", roomId, socket.id);
   socket.to(roomId).emit("userSharingScreen", socket.id);
+ });
+
+ //events for handling screen sharing updates
+
+ socket.on("stopScreenSharing", (roomId) => {
+  socket.to(roomId).emit("stopRemoteScreenSharing");
  });
 });
 
